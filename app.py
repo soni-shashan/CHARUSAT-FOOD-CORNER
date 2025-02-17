@@ -62,7 +62,7 @@ def callback():
 
     user_info = user_info_response.json()
     # Check if email ends with @charusat.edu.in
-    if 'email' in user_info and user_info['email'] == ['mr.shashansoni@gmail.com','jigarsarda.ee@charusat.ac.in']:
+    if 'email' in user_info and user_info['email'] == ['mr.shashansoni@gmail.com','jigarsarda.ee@charusat.ac.in','vaibhavipatel.cse@charusat.ac.in']:
         session['admin'] = {
             'uid': user_info.get('id', ''),  # Use get() to avoid KeyError
             'email': user_info.get('email', ''),  # Default to empty string if missing
