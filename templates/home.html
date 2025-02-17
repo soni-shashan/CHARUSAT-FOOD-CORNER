@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Home | Food Delivery</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="nav-container">
+        <a href="{{ url_for('home') }}" class="nav-button">🏠 Home</a>
+        <a href="{{ url_for('menu') }}" class="nav-button">📜 Menu</a>
+        <a href="{{ url_for('cart') }}" class="nav-button cart-button">
+            🛒 Cart
+        </a>
+        <a href="{{ url_for('order_details') }}" class="nav-button">🛒 Orders</a>
+        <a href="{{ url_for('logout') }}" class="nav-button">LOGOUT</a>
+
+    </div>
+
+    <div class="container">
+        <img src="{{ url_for('static', filename='images/food.png') }}" width="100%";">
+        <h1 class="home-title">Welcome to Tasty Food! 🍔</h1>
+        <p class="home-subtitle">Delicious meals delivered to your doorstep</p>
+        <br><br>
+        <!-- <a href="{{ url_for('menu') }}" class="menu-button">📜 Explore Menu</a> -->
+    </div>
+</body>
+</html>

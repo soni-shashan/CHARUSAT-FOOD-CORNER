@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill - CHARUSAT FOOD CORNER</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f8f9fa;
+            margin: 20px;
+        }
+        .bill-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            width: 50%;
+            margin: auto;
+        }
+        h1 {
+            color: #d9534f;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #ff5722;
+            color: white;
+        }
+        .total {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 20px;
+        }
+        .thank-you {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #28a745;
+            font-weight: bold;
+        }
+        .download-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .download-btn:hover {
+            background-color: #0056b3;
+        }
+        .pay-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .pay-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bill-container">
+        <h1>CHARUSAT FOOD CORNER</h1>
+        <p><strong>Order Summary</strong></p>
+        
+        <table>
+            <tr>
+                <th>Item</th>
+                <th>Store</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Subtotal</th>
+            </tr>
+            {% for store, items in bill_items.items() %}
+                {% for item, details in items.items() %}
+                    <tr>
+                        <td>{{ item }}</td>
+                        <td>{{ store }}</td>
+                        <td>{{ details['quantity'] }}</td>
+                        <td>₹{{ details['price'] }}</td>
+                        <td>₹{{ details['price'] * details['quantity'] }}</td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+        </table>
+        
+        <p class="total">Total Amount: ₹{{ total_price }}</p>
+        
+        
+        
+        <p class="thank-you">Thank You for Ordering! Visit Again 😊</p>
+    </div>
+    <button class="download-btn" onclick="window.print()">Print Bill</button>
+    <button id="pay-btn" class="pay-btn">Pay with Razorpay</button>
+
+    <script>
+        document.getElementById("pay-btn").onclick = async function () {
+            let amount = 1000;  // ₹10 in paise
+            let response = await fetch("/create_order", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ amount: amount })
+            });
+            
+            let order = await response.json();
+            var options = {
+                "key": "{{ key }}",
+                "amount": order.amount,
+                "currency": "INR",
+                "name": "CHARUSAT FOOD CORNER",
+                "order_id": order.id,
+                "handler": async function (response) {
+                    let verifyResponse = await fetch("/verify_payment", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(response)
+                    });
+                    
+                    let result = await verifyResponse.json();
+                    alert(result.message);
+                },
+                "theme": { "color": "#3399cc" }
+            };
+
+            var rzp = new Razorpay(options);
+            rzp.open();
+        };
+    </script>
+
+</body>
+</html>

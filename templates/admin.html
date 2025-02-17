@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Panel</h1>
+        <h2>Dashboard</h2>
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <h3>Total Orders</h3>
+                <p><strong>{{ total_orders }}</strong></p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Revenue</h3>
+                <p><strong>₹{{ total_revenue }}</strong></p>
+            </div>
+            <div class="stat-card">
+                <h3>Active Users</h3>
+                <p><strong>{{ active_users }}</strong></p>
+            </div>
+        </div>
+
+        <h2>Manage Sections</h2>
+        <div class="management-links">
+            <a href="{{ url_for('user_management') }}" class="button">User Management</a>
+            <a href="{{ url_for('order_management') }}" class="button">Order Management</a>
+            <a href="{{ url_for('menu_management') }}" class="button">Menu Management</a>
+        </div>
+    </div>
+</body>
+</html>

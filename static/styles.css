@@ -1,0 +1,228 @@
+body { font-family: Arial, sans-serif; text-align: center;padding: 0; margin: 0; background: #fff8ed;}
+body::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari, Opera */
+  }
+.nav-container { background: #ff7e5f; padding: 15px; }
+.nav-button { padding: 10px 20px; color: white; text-decoration: none; font-weight: bold; }
+.container { padding: 0px; }
+.menu-item, .cart-item { margin: 10px; padding: 10px; border: 1px solid #ddd; display: inline-block; }
+.nav-container {
+    margin: 20px;
+    background: linear-gradient(90deg, #ff7e5f, #feb47b);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    display: fixed;
+    gap: 10px; /* Space between buttons */
+    z-index: 1000;
+}
+/* Navigation Buttons */
+.nav-button {
+    padding: 12px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+    color: white;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex: 1 1 auto; /* Allow buttons to grow and shrink */
+    min-width: 120px; /* Minimum width for buttons */
+    text-align: center; /* Center text inside buttons */
+}
+.nav-button:hover {
+    background-color: rgba(255, 255, 255, 0.4); /* More opaque on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+.nav-button.active {
+    background-color: rgba(255, 255, 255, 0.6); /* Active button color */
+    color: #ff7e5f; /* Gradient color for text */
+}
+
+
+
+/* Store Containers */
+.store-container {
+    background: #ffefdb;
+    padding: 15px;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #ff5a33;
+}
+
+/* Menu Grid */
+.menu-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    justify-content: center; 
+    padding: 10px;
+}
+
+
+/* Menu Item Card */
+.menu-item {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 300px;
+}
+
+/* Hover Effect */
+.menu-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Menu Item Image */
+.menu-item img {
+    width: 256px;
+    height: 256px;
+    border-radius: 10px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+/* Zoom Effect on Image Hover */
+.menu-item:hover img {
+    transform: scale(1.05);
+}
+
+/* Price */
+.price {
+    font-weight: bold;
+    color: #ff5a33;
+    font-size: 18px;
+}
+
+/* Category */
+.category {
+    font-size: 14px;
+    color: gray;
+    font-style: italic;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .menu-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+    
+    .menu-item {
+        max-width: 200px;
+    }
+
+    .menu-item img {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+
+.price {
+    font-weight: bold;
+    color: #ff5a33;
+}
+
+.category {
+    font-size: 14px;
+    color: gray;
+}
+
+/* Add to Cart Button */
+.add-cart-btn {
+    background: #ff7e5f;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin-top: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.add-cart-btn:hover {
+    background: #ff4e33;
+}
+
+/* Cart Count */
+#cart-count {
+    background: white;
+    color: #ff4e33;
+    padding: 3px 6px;
+    font-size: 14px;
+    border-radius: 50%;
+    margin-left: 5px;
+}
+
+
+.cart-button {
+    position: relative;
+}
+
+.cart-button img {
+    width: 30px;
+    height: 30px;
+}
+
+#cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: red;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Floating Cart Preview */
+.cart-preview {
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    display: none;
+    padding: 10px;
+    max-width: 250px;
+}
+
+.cart-button:hover + .cart-preview {
+    display: block;
+}
+
+.cart-preview-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.cart-preview-item img {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+/* Cart Icon Animation */
+@keyframes bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.bounce {
+    animation: bounce 0.5s;
+}
+

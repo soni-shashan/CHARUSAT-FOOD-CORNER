@@ -1,0 +1,225 @@
+/* Updated CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(135deg, #1a1a1a, #3a3a3a);
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff8ed;
+    /* background: linear-gradient(10deg, #95755c, #624735); */
+    z-index: 1;
+}
+
+
+
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.login-box {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    transform: translateY(-20px);
+    animation: slideIn 0.5s forwards;
+    transition: transform 0.3s;
+}
+
+.login-box:hover {
+    transform: translateY(-25px);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+h1 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    color: #000000; /* Accent color */
+    transition: transform 0.3s, color 0.3s;
+}
+
+h1:hover {
+    transform: scale(1.05);
+    color: #000000; /* Lighter accent color */
+}
+
+h2 {
+    margin-bottom: 30px;
+    font-size: 1.5em;
+    color: #000000;
+}
+
+.google-button {
+    margin: 20px 0;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #4285f4; /* Google Blue */
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+    font-size: 1.1em;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s;
+    z-index: 0;
+}
+
+.btn:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.btn:hover {
+    background-color: #357ae8; /* Darker Google Blue */
+    transform: translateY(-3px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.social-media {
+    margin-top: 20px;
+}
+
+.social-icon {
+    color: #ffffff;
+    font-size: 1.5em;
+    margin: 0 10px;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.social-icon:hover {
+    color: #ff4081; /* Accent color on hover */
+    transform: scale(1.2);
+}
+
+
+.social-icons {
+    display: flex; /* Flexbox for social icons */
+    gap: 10px; /* Space between icons */
+}
+
+.social-icon {
+    color: white; /* Icon color */
+    font-size: 1.5em; /* Icon size */
+    transition: color 0.3s; /* Transition for hover effect */
+}
+
+.social-icon:hover {
+    color: #ff4081; /* Change color on hover */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .banner p{
+        font-size: 1rem;
+    }
+    .banner{
+        padding: 10px 20px 10px 20px; /* Padding for content */
+    }
+        
+    .social-icon {
+        font-size: 1em;
+        margin: 0 5px;
+    }
+}
+
+#loading-screen {
+    display: flex; /* Center the content */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    z-index: 9999; /* Ensure it is on top of other content */
+    color: white; /* Text color */
+    font-family: Arial, sans-serif; /* Font style */
+}
+
+.loader {
+    display: flex; /* Align dots in a row */
+    justify-content: space-between; /* Space between dots */
+    width: 80px; /* Width of the loader */
+    margin-bottom: 20px; /* Space between loader and text */
+}
+
+.dot {
+    width: 15px; /* Dot size */
+    height: 15px; /* Dot size */
+    border-radius: 50%; /* Circular shape */
+    background-color: #ff4081; /* Dot color */
+    animation: bounce 0.6s infinite alternate; /* Bounce animation */
+}
+
+.dot:nth-child(2) {
+    animation-delay: 0.2s; /* Delay for the second dot */
+}
+
+.dot:nth-child(3) {
+    animation-delay: 0.4s; /* Delay for the third dot */
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-20px); /* Bounce height */
+    }
+}

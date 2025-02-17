@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Menu Management</h1>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-message">{{ messages[0] }}</div>
+            {% endif %}
+        {% endwith %}
+        
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Store</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in menu_items %}
+                <tr>
+                    <td>{{ item['name'] }}</td>
+                    <td>{{ item['price'] }}</td>
+                    <td>{{ item['category'] }}</td>
+                    <td>{{ item['store'] }}</td>
+                    <td>
+                        {% if item['image'] %}
+                        <img src="{{ url_for('static', filename='images/' + item['image'].split('/')[-1]) }}" alt="Item Image" width="50" height="50">
+                        {% else %}
+                            No image available 
+                        {% endif %}
+                    </td>
+                    
+                    <td>
+                        <a href="{{ url_for('delete_menu_item', item_id=item['id']) }}" class="delete-btn">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>Add New Menu Item</h2>
+        <form action="{{ url_for('add_menu_item') }}" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="item_name">Item Name</label>
+                <input type="text" id="item_name" name="item_name" required>
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="number" id="price" name="price" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <input type="text" id="category" name="category" required>
+            </div>
+            <div class="form-group">
+                <label for="store">Store</label>
+                <input type="text" id="store" name="store" required>
+            </div>
+            <div class="form-group">
+                <label for="image">Image</label>
+                <input type="file" id="image" name="image" accept="image/*" required>
+            </div>
+            <button type="submit" class="submit-btn">Add Item</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+</html>

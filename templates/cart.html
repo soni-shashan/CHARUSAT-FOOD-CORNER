@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Cart | Food Delivery</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="nav-container">
+        <a href="{{ url_for('home') }}" class="nav-button">🏠 Home</a>
+        <a href="{{ url_for('menu') }}" class="nav-button">📜 Menu</a>
+        <a href="{{ url_for('cart') }}" class="nav-button active">🛒 Cart</a>
+        <a href="{{ url_for('order_details') }}" class="nav-button">🛒 Orders</a>
+        <a href="{{ url_for('logout') }}" class="nav-button">LOGOUT</a>
+
+    </div>
+
+    <div class="container">
+        <h1>🛒 Your Cart</h1>
+        {% if cart %}
+            {% for store, items in cart.items() %}
+            <div class="store-section">
+                <h2>{{ store }}</h2>
+                {% for item, details in items.items() %}
+                <div class="cart-item">
+                    <p><strong>{{ item }}</strong> - ₹{{ details.price }} x {{ details.quantity }}</p>
+                    
+                    <!-- Decrease Quantity -->
+                    <form method="POST" style="display:inline;">
+                        <input type="hidden" name="store_name" value="{{ store }}">
+                        <input type="hidden" name="item_name" value="{{ item }}">
+                        <input type="hidden" name="action" value="remove">
+                        <button type="submit">➖</button>
+                    </form>
+
+                    <!-- Increase Quantity -->
+                    <form method="POST" style="display:inline;">
+                        <input type="hidden" name="store_name" value="{{ store }}">
+                        <input type="hidden" name="item_name" value="{{ item }}">
+                        <input type="hidden" name="action" value="increase">
+                        <button type="submit">➕</button>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+            <h2>Total: ₹{{ total_price }}</h2>
+            <form method="POST">
+                <input type="hidden" name="action" value="checkout">
+                <button type="submit">✅ Checkout</button>
+            </form>
+        {% else %}
+            <p>Your cart is empty. Go to the menu...</p>
+        {% endif %}
+    </div>
+</body>
+</html>

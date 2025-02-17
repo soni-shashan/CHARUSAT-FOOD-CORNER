@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Menu | Food Delivery</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        function addToCart(itemName, itemImage) {
+            fetch("{{ url_for('menu') }}", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: "item_name=" + itemName
+            })
+            .then(response => response.text())
+            .then(() => {
+                let cartCount = document.getElementById("cart-count");
+                cartCount.innerText = parseInt(cartCount.innerText) + 1;
+
+                // Add item to floating cart preview
+                let cartPreview = document.getElementById("cart-preview");
+                let newItem = document.createElement("div");
+                newItem.classList.add("cart-preview-item");
+                newItem.innerHTML = `<img src="${itemImage}" alt="${itemName}" class="cart-img"><span>${itemName}</span>`;
+                cartPreview.appendChild(newItem);
+
+                // Animate cart icon
+                let cartIcon = document.getElementById("cart-icon");
+                cartIcon.classList.add("bounce");
+                setTimeout(() => cartIcon.classList.remove("bounce"), 500);
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="nav-container">
+        <a href="{{ url_for('home') }}" class="nav-button">🏠 Home</a>
+        <a href="{{ url_for('menu') }}" class="nav-button active">📜 Menu</a>
+        <a href="{{ url_for('cart') }}" class="nav-button cart-button">
+            🛒 Cart
+            <span id="cart-count">{{ session.get('cart')|length }}</span>
+        </a>
+        <a href="{{ url_for('order_details') }}" class="nav-button">🛒 Orders</a>
+        <a href="{{ url_for('logout') }}" class="nav-button">LOGOUT</a>
+        <div class="cart-preview" id="cart-preview"></div>
+    </div>
+
+    <div class="container">
+        <h1>📜 Menu</h1>
+        {% for store, items in menu_by_store.items() %}
+        <div class="store-container">
+            <h2>{{ store }}</h2>
+            <div class="menu-grid">
+                {% for item in items %}
+                <div class="menu-item">
+                    <img src="{{ url_for('static', filename='images/' + item.image) }}" alt="{{ item.name }}">
+                    <p><strong>{{ item.name }}</strong></p>
+                    <p class="price">₹{{ item.price }}</p>
+                    <p class="category">{{ item.category }}</p>
+
+                    <!-- AJAX Cart Update -->
+                    <button onclick="addToCart('{{ item.name }}', '{{ url_for('static', filename='images/' + item.image) }}')" class="add-cart-btn">
+                        🛍️ Add to Cart
+                    </button>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
