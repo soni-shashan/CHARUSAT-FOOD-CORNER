@@ -28,9 +28,9 @@ To set up the project locally, follow these steps:
    cd CHARUSAT-FOOD-CORNER
   
 2. **Install dependencies: Make sure you have Python and pip installed. Then run:**
-  ```bash
-  pip install -r requirements.txt
-  ```
+     ```bash
+     pip install -r requirements.txt
+     ```
 
 3. **Set up the database: Ensure you have a database set up (e.g., SQLite, PostgreSQL) and configure the connection in your settings.**
 4. **Run the application:**
